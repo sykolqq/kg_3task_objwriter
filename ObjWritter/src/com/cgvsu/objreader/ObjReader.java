@@ -143,7 +143,7 @@ public class ObjReader {
 					if (!wordIndices[1].equals("")) {
 						onePolygonTextureVertexIndices.add(Integer.parseInt(wordIndices[1]) - 1);
 					}else{
-						onePolygonNormalIndices.add(- 1);
+						onePolygonTextureVertexIndices.add(- 1);
 					}
 				}
 				default -> {
