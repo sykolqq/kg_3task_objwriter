@@ -16,6 +16,11 @@ public class ObjWritter {
     private static final String OBJ_FACE_TOKEN = "f";
 
     public static void saveModel(Model model, String fileName){
+        fileName = fileName.replaceAll("/", "_");
+        fileName = fileName.replaceAll("\\.", "_");
+        fileName = fileName.replaceAll(",", "_");
+        fileName = fileName.trim();
+
         Path path = Path.of("ObjWritter/modelSave/" + fileName + ".obj");
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile()))) {
 

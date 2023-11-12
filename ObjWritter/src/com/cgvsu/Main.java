@@ -24,7 +24,7 @@ public class Main {
         System.out.println("Normals: " + model.normals.size());
         System.out.println("Polygons: " + model.polygons.size());
 
-        ObjWritter.saveModel(model, "test1");
+        ObjWritter.saveModel(model, "/test1/    q");
 
         Vector2f v2 = new Vector2f(-1, 7);
         System.out.println(v2);
