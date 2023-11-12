@@ -1,5 +1,6 @@
 package com.cgvsu;
 
+import com.cgvsu.math.Vector2f;
 import com.cgvsu.model.Model;
 import com.cgvsu.objWritter.ObjWritter;
 import com.cgvsu.objreader.ObjReader;
@@ -24,5 +25,8 @@ public class Main {
         System.out.println("Polygons: " + model.polygons.size());
 
         ObjWritter.saveModel(model, "test1");
+
+        Vector2f v2 = new Vector2f(-1, 7);
+        System.out.println(v2);
     }
 }

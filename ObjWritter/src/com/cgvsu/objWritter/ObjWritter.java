@@ -6,6 +6,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 public class ObjWritter {
 
@@ -19,68 +20,13 @@ public class ObjWritter {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile()))) {
 
             // Записываем вершины
-            if(model.vertices.size() > 0){
-                writer.write("#VERTEXS");
-                writer.newLine();
-                writer.newLine();
-
-                for (int i = 0; i < model.vertices.size(); i += 1) {
-                    writer.write(OBJ_VERTEX_TOKEN);
-                    writer.write(" ");
-                    writer.write(String.valueOf(model.vertices.get(i)));
-                    writer.newLine();
-                }
-
-                writer.newLine();
-            }
-
+            writeData(writer, "#VERTEXS", OBJ_VERTEX_TOKEN, model.vertices);
             // Записываем текстурные координаты
-            if(model.textureVertices.size() > 0){
-                writer.write("#TEXTURES");
-                writer.newLine();
-                writer.newLine();
-
-                for (int i = 0; i < model.textureVertices.size(); i += 1) {
-                    writer.write(OBJ_TEXTURE_TOKEN);
-                    writer.write(" ");
-                    writer.write(String.valueOf(model.textureVertices.get(i)));
-                    writer.newLine();
-                }
-
-                writer.newLine();
-            }
+            writeData(writer, "#TEXTURES", OBJ_TEXTURE_TOKEN, model.textureVertices);
             // Записываем нормали
-            if(model.normals.size() > 0){
-                writer.write("#NORMALS");
-                writer.newLine();
-                writer.newLine();
-
-                for (int i = 0; i < model.normals.size(); i += 1) {
-                    writer.write(OBJ_NORMAL_TOKEN);
-                    writer.write(" ");
-                    writer.write(String.valueOf(model.normals.get(i)));
-                    writer.newLine();
-                }
-
-                writer.newLine();
-            }
-
+            writeData(writer, "#NORMALS", OBJ_NORMAL_TOKEN, model.normals);
             // Записываем полгиноны
-            if(model.polygons.size() > 0){
-                writer.write("#FACES");
-                writer.newLine();
-                writer.newLine();
-
-                for (int i = 0; i < model.polygons.size(); i += 1) {
-                    writer.write(OBJ_FACE_TOKEN);
-                    writer.write(" ");
-                    writer.write(String.valueOf(model.polygons.get(i)));
-                    writer.newLine();
-                }
-
-                writer.newLine();
-            }
-
+            writeData(writer, "#FACES", OBJ_FACE_TOKEN, model.polygons);
 
             System.out.println("Файл успешно сохранён: " + fileName);
         } catch (IOException e) {
@@ -88,4 +34,20 @@ public class ObjWritter {
         }
     }
 
+    private static void writeData(BufferedWriter wr, String comment, String TOKEN, ArrayList data) throws IOException {
+        if(data.size() > 0){
+            wr.write(comment);
+            wr.newLine();
+            wr.newLine();
+
+            for (Object datum : data) {
+                wr.write(TOKEN);
+                wr.write(" ");
+                wr.write(String.valueOf(datum));
+                wr.newLine();
+            }
+
+            wr.newLine();
+        }
+    }
 }
