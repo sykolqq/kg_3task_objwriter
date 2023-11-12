@@ -14,18 +14,75 @@ public class ObjWritter {
     private static final String OBJ_NORMAL_TOKEN = "vn";
     private static final String OBJ_FACE_TOKEN = "f";
 
-    public void saveModel(Model model, String fileName){
+    public static void saveModel(Model model, String fileName){
         Path path = Path.of("ObjWritter/modelSave/" + fileName + ".obj");
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile()))) {
+
             // Записываем вершины
-            for (int i = 0; i < vertices.length; i += 3) {
-                writer.write("v " + vertices[i] + " " + vertices[i + 1] + " " + vertices[i + 2]);
+            if(model.vertices.size() > 0){
+                writer.write("#VERTEXS");
+                writer.newLine();
+                writer.newLine();
+
+                for (int i = 0; i < model.vertices.size(); i += 1) {
+                    writer.write(OBJ_VERTEX_TOKEN);
+                    writer.write(" ");
+                    writer.write(String.valueOf(model.vertices.get(i)));
+                    writer.newLine();
+                }
+
                 writer.newLine();
             }
 
-            // Дополнительно, вы можете добавить запись для нормалей, текстурных координат и других данных
+            // Записываем текстурные координаты
+            if(model.textureVertices.size() > 0){
+                writer.write("#TEXTURES");
+                writer.newLine();
+                writer.newLine();
 
-            System.out.println("Файл успешно записан: " + fileName);
+                for (int i = 0; i < model.textureVertices.size(); i += 1) {
+                    writer.write(OBJ_TEXTURE_TOKEN);
+                    writer.write(" ");
+                    writer.write(String.valueOf(model.textureVertices.get(i)));
+                    writer.newLine();
+                }
+
+                writer.newLine();
+            }
+            // Записываем нормали
+            if(model.normals.size() > 0){
+                writer.write("#NORMALS");
+                writer.newLine();
+                writer.newLine();
+
+                for (int i = 0; i < model.normals.size(); i += 1) {
+                    writer.write(OBJ_NORMAL_TOKEN);
+                    writer.write(" ");
+                    writer.write(String.valueOf(model.normals.get(i)));
+                    writer.newLine();
+                }
+
+                writer.newLine();
+            }
+
+            // Записываем полгиноны
+            if(model.polygons.size() > 0){
+                writer.write("#FACES");
+                writer.newLine();
+                writer.newLine();
+
+                for (int i = 0; i < model.polygons.size(); i += 1) {
+                    writer.write(OBJ_FACE_TOKEN);
+                    writer.write(" ");
+                    writer.write(String.valueOf(model.polygons.get(i)));
+                    writer.newLine();
+                }
+
+                writer.newLine();
+            }
+
+
+            System.out.println("Файл успешно сохранён: " + fileName);
         } catch (IOException e) {
             e.printStackTrace();
         }
