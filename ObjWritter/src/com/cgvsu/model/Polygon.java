@@ -41,4 +41,48 @@ public class Polygon {
     public ArrayList<Integer> getNormalIndices() {
         return normalIndices;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for(int i =0; i<vertexIndices.size(); i++){
+            sb.append(this.toStringPoligon(
+                    vertexIndices.get(i),
+                    textureVertexIndices.get(i),
+                    normalIndices.get(i)
+            ));
+
+            sb.append(" ");
+        }
+
+        return sb.toString();
+    }
+
+    private String toStringPoligon(int v, int vt, int vn){
+        StringBuilder sb = new StringBuilder();
+        sb.append(v+1);
+
+        if(vt == -1 & vn == -1){
+            return sb.toString();
+        }
+
+        if(vt == -1 & vn != -1){
+            sb.append("//");
+            sb.append(vn+1);
+            return sb.toString();
+        }
+
+        sb.append("/");
+        sb.append(vt+1);
+
+        if(vn == -1){
+            return sb.toString();
+        }
+
+        sb.append("/");
+        sb.append(vn+1);
+
+        return sb.toString();
+
+    }
 }
