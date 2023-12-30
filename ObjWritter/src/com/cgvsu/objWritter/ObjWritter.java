@@ -3,13 +3,14 @@ package com.cgvsu.objWritter;
 import com.cgvsu.model.Model;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class ObjWritter {
-
     private static final String OBJ_VERTEX_TOKEN = "v";
     private static final String OBJ_TEXTURE_TOKEN = "vt";
     private static final String OBJ_NORMAL_TOKEN = "vn";
@@ -39,7 +40,7 @@ public class ObjWritter {
         }
     }
 
-    private static void writeData(BufferedWriter wr, String comment, String TOKEN, ArrayList data) throws IOException {
+    private static void writeData(BufferedWriter wr, String comment, String TOKEN, ArrayList<?> data) throws IOException {
         if(data.size() > 0){
             wr.write(comment);
             wr.newLine();
